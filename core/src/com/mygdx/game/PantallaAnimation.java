@@ -14,9 +14,26 @@ public class PantallaAnimation extends Pantalla {
     private Animation dudeAnimation;
     private float duracion=0;
     
-    private static final int ALTO=600;
-    private static final int ANCHO=16000;
-    private static final int num_foto=20; //nimero de fotogramas por imagen
+    
+    
+    private Texture dude2;
+    private TextureRegion dudeRegion2;
+    private TextureRegion[] dudeFrames2;
+    private Animation dudeAnimation2;
+    
+    
+    
+    
+    
+    private static final int ALTO=3600;
+    private static final int ANCHO=9000;
+    private static final int NUM_FOTO_X=20; //nimero de fotogramas por imagen
+    private static final int NUM_FOTO_Y=8;
+    
+    
+    
+    
+    
     
     
     public PantallaAnimation(MyGdxGame game) {
@@ -25,9 +42,9 @@ public class PantallaAnimation extends Pantalla {
 
     @Override
     public void show() {
-        dude =new Texture("prueba.png");
+        dude =new Texture("bruja_caminando.png");
         dudeRegion= new TextureRegion(dude,ANCHO,ALTO);
-        TextureRegion[][] temp= dudeRegion.split(ANCHO/num_foto,ALTO);
+        TextureRegion[][] temp= dudeRegion.split(ANCHO/NUM_FOTO_X,ALTO/NUM_FOTO_Y);
         dudeFrames = new TextureRegion [temp.length * temp[0].length];
         
         int indice=0;
@@ -44,7 +61,23 @@ public class PantallaAnimation extends Pantalla {
         */
         
        //esta bien
-       dudeAnimation= new Animation(0.03f,dudeFrames);
+       dudeAnimation= new Animation(0.04f,dudeFrames);
+       
+       
+       
+       dude2=new Texture("bruja_atacando.png");
+       dudeRegion2= new TextureRegion(dude2,ANCHO,ALTO);
+       TextureRegion[][] temp2= dudeRegion2.split(ANCHO/NUM_FOTO_X, ALTO/NUM_FOTO_Y);
+       dudeFrames2 = new TextureRegion [temp2.length * temp2[0].length];
+       
+        indice=(temp2.length * temp2[0].length)-1;
+        for (int i = 0; i<temp2.length;i++) {
+            for (int j = 0; j<temp2[0].length; j++) {
+                dudeFrames2[indice--] = temp2[i][j];
+            }
+        }
+       
+        dudeAnimation2= new Animation(0.04f,dudeFrames2);
     
     }
 	
@@ -60,9 +93,10 @@ public class PantallaAnimation extends Pantalla {
         duracion+=delta;
         
         TextureRegion frame  = (TextureRegion) dudeAnimation.getKeyFrame(duracion, true);
+        TextureRegion frame2 = (TextureRegion) dudeAnimation2.getKeyFrame(duracion, true);
         game.batch.begin();
-        
-        game.batch.draw(frame, 100, 100);
+        game.batch.draw(frame2, 200, 200);
+        game.batch.draw(frame, 0, 0);
         game.batch.end();
         
     }
