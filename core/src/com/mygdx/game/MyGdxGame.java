@@ -10,6 +10,7 @@ public class MyGdxGame extends Game {
 	
 	public Pantalla coche;
 	public Pantalla animacion;
+        public Pantalla animacionMolino;
 
 	@Override
 	public void create() {
@@ -18,7 +19,8 @@ public class MyGdxGame extends Game {
 		
 		
 		animacion = new com.mygdx.game.PantallaAnimation(this);
-		setScreen(animacion);
+                animacionMolino= new com.mygdx.game.AnimationMolino(this);
+		setScreen(animacionMolino);
 	}
 
         
